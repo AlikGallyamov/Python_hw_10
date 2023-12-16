@@ -22,13 +22,13 @@ class RegistrationPage:
     def fill_number_phone(self, number):
         browser.element('#userNumber').click().should(be.blank).type(number)
 
-    def choice_birthday(self, birthday):
+    def choice_birthday(self):
         browser.element('[id="dateOfBirthInput"]').click()
         browser.element('.react-datepicker__year-select').click()
-        browser.element(f'[value="{birthday[2]}"]').click()
+        browser.element('[value="1996"]').click()
         browser.element('[class*=month-select]').click()
-        browser.element(f'[class*=month-select] [value="{birthday[1]-1}"]').click()
-        browser.element(f'[class*=day--0{birthday[0]}]').click()
+        browser.element('[class*=month-select] [value="1"]').click()
+        browser.element('[class*=day--022]').click()
 
     def fill_subject(self, value):
         browser.element('#subjectsInput').click().type(value).press_tab()
