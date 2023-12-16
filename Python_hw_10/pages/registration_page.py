@@ -4,21 +4,22 @@ from Python_hw_10.resources.path import CURRENT_DIR
 
 
 class RegistrationPage:
-
-    def open_url(self):
-        browser.open('/automation-practice-form')
-
-    def register(self, dataUser):
+    def fill_first_name(self, dataUser):
         browser.element('#firstName').click().should(be.blank).type(dataUser.firstName)
 
+    def fill_last_name(self, dataUser):
         browser.element('#lastName').click().should(be.blank).type(dataUser.lastName)
 
+    def fill_email(self, dataUser):
         browser.element('#userEmail').click().should(be.blank).type(dataUser.email)
 
+    def choice_gender(self, dataUser):
         browser.element('[for="gender-radio-1"]').click()
 
+    def fill_number_phone(self, dataUser):
         browser.element('#userNumber').click().should(be.blank).type(dataUser.phoneNumber)
 
+    def choice_birthday(self, dataUser):
         browser.element('[id="dateOfBirthInput"]').click()
         browser.element('.react-datepicker__year-select').click()
         browser.element('[value="1996"]').click()
@@ -26,20 +27,43 @@ class RegistrationPage:
         browser.element('[class*=month-select] [value="1"]').click()
         browser.element('[class*=day--022]').click()
 
+    def fill_subject(self, dataUser):
         browser.element('#subjectsInput').click().type(dataUser.subject).press_tab()
 
+    def choice_hobbies(self, dataUser):
         browser.element('[for=hobbies-checkbox-1]').click()
         browser.element('[for=hobbies-checkbox-2]').click()
         browser.element('[for=hobbies-checkbox-3]').click()
 
+    def upload_img(self, dataUser):
         browser.element('[type=file]').send_keys(os.path.join(CURRENT_DIR, dataUser.fileName))
 
+    def fill_address(self, dataUser):
         browser.element('#currentAddress').click().should(be.blank).type(dataUser.address)
 
+    def state_city(self, dataUser):
         browser.element('#react-select-3-input').type(dataUser.state).press_enter()
         browser.element('#react-select-4-input').type(dataUser.city).press_enter()
 
+    def open_url(self):
+        browser.open('/automation-practice-form')
+
+    def click_submit(self):
         browser.element('#submit').press_enter()
+    def register(self, dataUser):
+        self.fill_first_name(dataUser)
+        self.fill_last_name(dataUser)
+        self.fill_email(dataUser)
+        self.choice_gender(dataUser)
+        self.fill_number_phone(dataUser)
+        self.choice_birthday(dataUser)
+        self.fill_subject(dataUser)
+        self.choice_hobbies(dataUser)
+        self.upload_img(dataUser)
+        self.fill_address(dataUser)
+        self.state_city(dataUser)
+        self.click_submit()
+
 
     def should_have_registered(self, dataUser):
         browser.all('tbody tr td').should(
