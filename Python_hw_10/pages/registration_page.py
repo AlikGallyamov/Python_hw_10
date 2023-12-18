@@ -1,6 +1,7 @@
-from selene import browser, be, have, query, command
-import os
-from Python_hw_10.resources.path import CURRENT_DIR
+from selene import browser, be, have
+
+
+from Python_hw_10.controls import resource
 from datetime import datetime
 
 
@@ -48,7 +49,7 @@ class RegistrationPage:
         browser.element('[for=hobbies-checkbox-3]').click()
 
     def upload_img(self, dataUser):
-        browser.element('[type=file]').send_keys(os.path.join(CURRENT_DIR, dataUser.fileName))
+        browser.element('[type=file]').send_keys(resource.path(dataUser.fileName))
 
     def fill_address(self, dataUser):
         browser.element('#currentAddress').click().should(be.blank).type(dataUser.address)
