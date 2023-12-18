@@ -1,6 +1,7 @@
-from selene import browser, be, have
+from selene import browser, be, have, query, command
 import os
 from Python_hw_10.resources.path import CURRENT_DIR
+from datetime import datetime
 
 
 class RegistrationPage:
@@ -14,18 +15,29 @@ class RegistrationPage:
         browser.element('#userEmail').click().should(be.blank).type(dataUser.email)
 
     def choice_gender(self, dataUser):
-        browser.element('[for="gender-radio-1"]').click()
+        gender_dict = {
+            'Male': 1,
+            'Female': 2,
+            'Other': 3
+        }
+        browser.element(f'[for="gender-radio-{gender_dict[dataUser.gender]}"]').click()
 
     def fill_number_phone(self, dataUser):
         browser.element('#userNumber').click().should(be.blank).type(dataUser.phoneNumber)
 
     def choice_birthday(self, dataUser):
+        date_text = dataUser.dateBirth
+        date_format = '%d %B,%Y'
+        date_formated = str(datetime.strptime(date_text, date_format).date()).split('-')
+        date_formated = [int(i) for i in date_formated]
+        date_formated[2] = str(date_formated[2]).rjust(3, '0')
+
         browser.element('[id="dateOfBirthInput"]').click()
         browser.element('.react-datepicker__year-select').click()
-        browser.element('[value="1996"]').click()
+        browser.element(f'[value="{date_formated[0]}"]').click()
         browser.element('[class*=month-select]').click()
-        browser.element('[class*=month-select] [value="1"]').click()
-        browser.element('[class*=day--022]').click()
+        browser.element(f'[class*=month-select] [value="{int(date_formated[1]) - 1}"]').click()
+        browser.element(f'[class*=day--{date_formated[2]}]').click()
 
     def fill_subject(self, dataUser):
         browser.element('#subjectsInput').click().type(dataUser.subject).press_tab()
@@ -50,6 +62,7 @@ class RegistrationPage:
 
     def click_submit(self):
         browser.element('#submit').press_enter()
+
     def register(self, dataUser):
         self.fill_first_name(dataUser)
         self.fill_last_name(dataUser)
@@ -63,7 +76,6 @@ class RegistrationPage:
         self.fill_address(dataUser)
         self.state_city(dataUser)
         self.click_submit()
-
 
     def should_have_registered(self, dataUser):
         browser.all('tbody tr td').should(

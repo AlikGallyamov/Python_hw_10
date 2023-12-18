@@ -3,8 +3,8 @@ from Python_hw_10.resources.user import DataUser
 
 
 def test_fill_form(browser_config):
-    dataUser = DataUser(firstName='Ivan', lastName='Ivanov', email='name@example.com', gender='Male',
-                        phoneNumber='8999999999', dateBirth='22 February,1996', fileName='img.png', subject='English',
+    dataUser = DataUser(firstName='Ivan', lastName='Ivanov', email='name@example.com', gender='Female',
+                        phoneNumber='8999999999', dateBirth='03 December,2003', fileName='img.png', subject='English',
                         hobbies='Sports, Reading, Music', state='Haryana', city='Panipat', address='Baker Street')
     registrationPage = RegistrationPage()
     registrationPage.open_url()
