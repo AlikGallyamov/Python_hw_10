@@ -1,5 +1,5 @@
 from selene import browser, be, have
-import os
+from Python_hw_10.controls import resource
 
 
 class RegistrationPage:
@@ -38,8 +38,8 @@ class RegistrationPage:
         browser.element('[for=hobbies-checkbox-2]').click()
         browser.element('[for=hobbies-checkbox-3]').click()
 
-    def upload_img(self, CURRENT_DIR, img_name):
-        browser.element('[type=file]').send_keys(os.path.join(CURRENT_DIR, img_name))
+    def upload_img(self, img_name):
+        browser.element('[type=file]').send_keys(resource.path(img_name))
 
     def fill_address(self, address):
         browser.element('#currentAddress').click().should(be.blank).type(address)

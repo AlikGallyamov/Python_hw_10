@@ -1,8 +1,4 @@
-import os
-from selene import browser, have, be
-
 from Python_hw_10.pages.registration_page import RegistrationPage
-from Python_hw_10.resources.path import CURRENT_DIR
 
 
 def test_fill_form(browser_config):
@@ -26,7 +22,7 @@ def test_fill_form(browser_config):
 
     registration_page.choice_hobbies()
 
-    registration_page.upload_img(CURRENT_DIR, 'img.png')
+    registration_page.upload_img('img.png')
 
     registration_page.fill_address('Baker Street')
 
