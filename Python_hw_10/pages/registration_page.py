@@ -52,7 +52,7 @@ class RegistrationPage:
         browser.element('[type=file]').send_keys(resource.path(dataUser.fileName))
 
     def fill_address(self, dataUser):
-        browser.element('#currentAddress').click().should(be.blank).type(dataUser.address)
+        browser.element('#currentAddress').should(be.blank).type(dataUser.address)
 
     def state_city(self, dataUser):
         browser.element('#react-select-3-input').type(dataUser.state).press_enter()
