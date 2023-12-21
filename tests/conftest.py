@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selene import browser
+
 from utils import attach
 
 
@@ -24,10 +25,11 @@ def browser_config():
 
     browser.config.driver = driver
     browser.config.base_url = 'https://demoqa.com'
+    attach.add_video(browser)
 
     yield
+
     attach.add_html(browser)
     attach.add_screenshot(browser)
     attach.add_logs(browser)
-    attach.add_video(browser)
     browser.quit()
