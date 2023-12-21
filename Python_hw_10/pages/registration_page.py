@@ -1,12 +1,9 @@
 from selene import browser, be, have
 import allure
-
 from Python_hw_10.controls import resource
 from datetime import datetime
-
 from Python_hw_10.data.user import DataUser
 from Python_hw_10.data.user import dataUser
-from utils import attach
 
 
 class RegistrationPage:
@@ -83,7 +80,6 @@ class RegistrationPage:
         browser.element('#submit').press_enter()
 
     def register(self, dataUser):
-        attach.add_video(browser)
         self.fill_first_name(dataUser)
         self.fill_last_name(dataUser)
         self.fill_email(dataUser)
@@ -98,6 +94,7 @@ class RegistrationPage:
         self.click_submit()
 
     dataUser = DataUser
+
     @allure.step("Сравниваем результат")
     def should_have_registered(self, dataUser):
         browser.all('tbody tr td').should(
