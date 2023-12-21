@@ -1,26 +1,35 @@
-import pydantic_settings
 import pytest
-from selene import browser
 from selenium import webdriver
-
-
-class Settings(pydantic_settings.BaseSettings):
-    base_url: str = 'https://demoqa.com'
-    window_width: str = '1900'
-    window_height: str = '950'
-    headless: bool = False
+from selenium.webdriver.chrome.options import Options
+from selene import Browser, Config
 
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_config():
-    config = Settings()
-    browser.config.base_url = config.base_url
-    if config.headless:
-        driver_options = webdriver.ChromeOptions()
-        driver_options.add_argument('--headless')
-        browser.config.driver_options = driver_options
-    browser.config.window_width = config.window_width
-    browser.config.window_height = config.window_height
+
+    options = Options()
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "100.0",
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    options.capabilities.update(selenoid_capabilities)
+    driver = webdriver.Remote(
+        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        options=options
+    )
+    browser = Browser(Config(driver))
+
+
+    browser.config.base_url = 'https://demoqa.com'
+    # driver_options = webdriver.ChromeOptions()
+    # driver_options.add_argument('--headless')
+    # browser.config.driver_options = driver_options
+    # browser.config.window_width = 1900
+    # browser.config.window_height = 950
 
     yield
 
