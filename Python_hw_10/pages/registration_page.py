@@ -6,6 +6,7 @@ from datetime import datetime
 
 from Python_hw_10.data.user import DataUser
 from Python_hw_10.data.user import dataUser
+from utils import attach
 
 
 class RegistrationPage:
@@ -82,6 +83,7 @@ class RegistrationPage:
         browser.element('#submit').press_enter()
 
     def register(self, dataUser):
+        attach.add_video(browser)
         self.fill_first_name(dataUser)
         self.fill_last_name(dataUser)
         self.fill_email(dataUser)

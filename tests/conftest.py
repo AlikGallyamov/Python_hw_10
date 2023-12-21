@@ -25,7 +25,6 @@ def browser_config():
 
     browser.config.driver = driver
     browser.config.base_url = 'https://demoqa.com'
-    attach.add_video(browser)
 
     yield
 
