@@ -2,6 +2,7 @@ import pydantic_settings
 import pytest
 from selene import browser
 from selenium import webdriver
+import os
 
 
 class Settings(pydantic_settings.BaseSettings):
@@ -15,6 +16,7 @@ class Settings(pydantic_settings.BaseSettings):
 def browser_config():
     config = Settings()
     browser.config.base_url = config.base_url
+    browser.config.driver_name = os.getenv('driver_name', 'chrome')
     if config.headless:
         driver_options = webdriver.ChromeOptions()
         driver_options.add_argument('--headless')
